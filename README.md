@@ -16,3 +16,8 @@ This is a resume portfolio project to demonstrate the case of building micro-ser
 ## Project structure ##
 
 The project is multi module where each module represents one layer of the service
+
+* common - contains common shareable code
+* persistence - code to persist/retrieve product catalog
+* server - REST API
+* core - main application logic and orchestration
