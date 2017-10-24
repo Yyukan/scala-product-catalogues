@@ -1,0 +1,26 @@
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# SBT
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
+
+# Scala
+*.class
+*.log
+
+# IntelliJ
+out/
+*.iws
+*.iml
+.idea_modules/
+.idea
