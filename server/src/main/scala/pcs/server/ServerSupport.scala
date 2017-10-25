@@ -7,6 +7,7 @@ import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigRenderOptions
+import pcs.server.service.CataloguesService
 
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.{Failure, Success}
@@ -14,7 +15,7 @@ import scala.util.{Failure, Success}
 /**
   * Starts and binds server
   */
-trait ServerSupport {
+trait ServerSupport extends CataloguesService {
 
   implicit val system: ActorSystem = ActorSystem("pcs-system")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
@@ -25,31 +26,25 @@ trait ServerSupport {
   def start(): Unit = {
     val config = system.settings.config
 
-    val renderOpts = ConfigRenderOptions
+    val options = ConfigRenderOptions
       .defaults()
       .setOriginComments(false)
       .setComments(true)
       .setFormatted(true)
       .setJson(false)
 
-    log.debug("Application configuration {}", config.root().render(renderOpts))
+    log.debug("Application configuration {}", config.root().render(options))
 
     val host = config.getString("pcs.server.host")
     val port = config.getInt("pcs.server.port")
 
-    // TODO:oshtykhno move to service
-    val api =
-      path("hello") {
-        get {
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "PCS catalogus will be here!"))
-        }
-      }
+    val routes = api // TODO:oshtykhno add another routes
 
-    Http().bindAndHandle(api, host, port).onComplete {
+    Http().bindAndHandle(routes, host, port).onComplete {
       case Success(binding) =>
         log.info(s"Server started at ${binding.localAddress} ")
       case Failure(exception) =>
-        log.error("Failed to start server at {}:{}", host, port)
+        log.error(exception, "Failed to start server at {}:{}", host, port)
         system.terminate()
     }
   }
