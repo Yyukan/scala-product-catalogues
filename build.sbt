@@ -32,4 +32,6 @@ lazy val server = project
 lazy val root = project
   .in(file("."))
   .settings(commonSettings)
+  .dependsOn(server)
   .aggregate(common, core, server, persistence)
+
