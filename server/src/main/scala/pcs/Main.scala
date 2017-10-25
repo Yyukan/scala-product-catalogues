@@ -1,5 +1,10 @@
 package pcs
 
-object Main extends App {
+import pcs.server.ServerSupport
 
+/**
+  * Application entry point
+  */
+object Main extends App with ServerSupport {
+  start()
 }

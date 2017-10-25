@@ -21,9 +21,13 @@ lazy val core = project
   .settings(commonSettings)
   .dependsOn(common, persistence)
 
+lazy val serverSettings = Seq(
+  libraryDependencies ++= Dependencies.server
+)
+
 lazy val server = project
   .in(file("server"))
-  .settings(commonSettings)
+  .settings(commonSettings ++ serverSettings)
   .dependsOn(common, core)
 
 //
