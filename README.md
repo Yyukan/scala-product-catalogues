@@ -21,3 +21,5 @@ The project is multi module where each module represents one layer of the servic
 * persistence - code to persist/retrieve product catalog
 * server - REST API
 * core - main application logic and orchestration
+
+## Architecture ##

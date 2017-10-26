@@ -14,7 +14,6 @@ object Library {
   val akkaPersistence = "com.typesafe.akka"  %% "akka-persistence" % Version.akka
   val akkaCluster     = "com.typesafe.akka"  %% "akka-cluster"     % Version.akka
   val akkaHttp        = "com.typesafe.akka"  %% "akka-http"        % Version.akkaHttp
-  val akkaTestKit     = "com.typesafe.akka"  %% "akka-testkit"     % Version.akka
   val cats            = "org.typelevel"      %% "cats-core"        % Version.cats
   val slick           = "com.typesafe.slick" %% "slick"            % Version.slick
 }
