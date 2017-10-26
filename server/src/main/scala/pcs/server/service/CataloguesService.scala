@@ -1,16 +1,25 @@
 package pcs.server.service
 
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
-import akka.http.scaladsl.server.Directives.{complete, get, path}
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server._
 
-trait CataloguesService {
+/**
+  * Defines REST API for product catalogues
+  */
+case class CataloguesService() extends Service {
 
-  // TODO:oshtykhno move to service
-  val api =
-    path("hello") {
-      get {
-        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "PCS catalogus will be here!"))
+  override def routes = findById
+
+  def findById: Route = {
+    get {
+      pathPrefix("v1" / "products" / LongNumber ) { id =>
+        pathEndOrSingleSlash {
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"PCS findProduct by id $id"))
+        }
       }
     }
+  }
 
 }
+
