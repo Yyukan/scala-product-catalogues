@@ -20,12 +20,12 @@ trait ServerSupport {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
-  val log: LoggingAdapter = system.log
+  lazy val log: LoggingAdapter = system.log
 
   /* all supported services */
-  val services: Seq[Service] = Seq(
-    CategoryService(),
-    CataloguesService()
+  lazy val services: Seq[Service] = Seq(
+    CategoryService(system),
+    CataloguesService(system)
   )
 
   /**
