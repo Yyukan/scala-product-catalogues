@@ -9,7 +9,7 @@ import akka.http.scaladsl.server._
   */
 case class CataloguesService() extends Service {
 
-  override def routes = findById
+  override lazy val routes: Route = findById
 
   def findById: Route = {
     get {

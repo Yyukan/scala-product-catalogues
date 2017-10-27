@@ -50,12 +50,13 @@ trait ServerSupport {
 
     val routes = services.map(_.routes).reduce(_ ~ _)
 
-    Http().bindAndHandle(routes, host, port).onComplete {
-      case Success(binding) =>
-        log.info(s"Server started at ${binding.localAddress}")
-      case Failure(exception) =>
-        log.error(exception, "Failed to start server at {}:{}", host, port)
-        system.terminate()
-    }
+    Http().bindAndHandle(routes, host, port)
+      .onComplete {
+        case Success(binding) =>
+          log.info(s"Server started at ${binding.localAddress}")
+        case Failure(exception) =>
+          log.error(exception, "Failed to start server at {}:{}", host, port)
+          system.terminate()
+      }
   }
 }
