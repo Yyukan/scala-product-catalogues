@@ -13,6 +13,7 @@ object Library {
   val akkaStreams     = "com.typesafe.akka"  %% "akka-stream"      % Version.akka
   val akkaPersistence = "com.typesafe.akka"  %% "akka-persistence" % Version.akka
   val akkaCluster     = "com.typesafe.akka"  %% "akka-cluster"     % Version.akka
+  val akkaRemote      = "com.typesafe.akka"  %% "akka-remote"      % Version.akka
   val akkaHttp        = "com.typesafe.akka"  %% "akka-http"        % Version.akkaHttp
   val cats            = "org.typelevel"      %% "cats-core"        % Version.cats
   val slick           = "com.typesafe.slick" %% "slick"            % Version.slick
@@ -26,11 +27,24 @@ object Dependencies {
 
   import Library._
 
-  val server = Seq(
+  val common = Seq(
     akkaActor,
-    akkaStreams,
-    akkaHttp,
     cats
+  )
+
+  val persistence = Seq(
+    akkaPersistence,
+    slick
+  )
+
+  val core = Seq(
+    akkaCluster
+  )
+
+  val server = Seq(
+    akkaHttp,
+    akkaStreams,
+    akkaRemote
   )
 
 }

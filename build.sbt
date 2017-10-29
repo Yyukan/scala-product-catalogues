@@ -2,25 +2,56 @@
  * Scala Product Catalogues
  */
 
+//
+// Common module
+//
 lazy val commonSettings = Seq(
   scalaVersion := Version.scala,
-  version := "0.1.0-SNAPSHOT"
+  version := "0.1.0-SNAPSHOT",
+  libraryDependencies ++= Dependencies.common,
+  scalacOptions ++= Seq(
+    "-deprecation",
+    "-encoding", "utf-8",
+    "-explaintypes",
+    "-feature",
+    "-language:existentials",
+    "-language:higherKinds",
+    "-language:implicitConversions",
+    "-language:postfixOps"
+  )
 )
 
 lazy val common = project
   .in(file("common"))
   .settings(commonSettings)
 
+//
+// Persistence module
+//
+lazy val persistenceSettings = Seq(
+  libraryDependencies ++= Dependencies.persistence
+)
+
 lazy val persistence = project
   .in(file("persistence"))
-  .settings(commonSettings)
+  .settings(commonSettings ++ persistenceSettings)
   .dependsOn(common)
+
+//
+// Core module
+//
+lazy val coreSettings = Seq(
+  libraryDependencies ++= Dependencies.core
+)
 
 lazy val core = project
   .in(file("core"))
-  .settings(commonSettings)
+  .settings(commonSettings ++ coreSettings)
   .dependsOn(common, persistence)
 
+//
+// Server module
+//
 lazy val serverSettings = Seq(
   libraryDependencies ++= Dependencies.server
 )
