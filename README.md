@@ -28,4 +28,10 @@ TODO
 
 ## How to run ##
 
-TODO
+First node (127.0.0.1:2551)
+
+`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=19999 "runMain pcs.Main" `
+
+Second node 
+
+`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=20000 -DHOST=127.0.0.1 -DPORT=2552 "runMain pcs.Main"`
