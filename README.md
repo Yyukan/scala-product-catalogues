@@ -23,3 +23,9 @@ The project is multi module where each module represents one layer of the servic
 * core - main application logic and orchestration
 
 ## Architecture ##
+
+TODO
+
+## How to run ##
+
+TODO

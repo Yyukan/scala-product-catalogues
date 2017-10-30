@@ -26,7 +26,7 @@ case class CataloguesService(system: ActorSystem) extends Service {
       pathPrefix("v1" / "products" / LongNumber ) { id =>
         pathEndOrSingleSlash {
           val remote =
-            system.actorSelection("akka.tcp://ClusterSystem@127.0.0.1:2551/user/clusterListener")
+            system.actorSelection("akka.tcp://server-system@127.0.0.1:2551/user/clusterListener")
 
           println(s"Actor in selection $remote")
 

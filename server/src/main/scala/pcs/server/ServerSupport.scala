@@ -1,7 +1,9 @@
 package pcs.server
 
+import akka.actor.Props
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
+import pcs.core.sample.cluster.simple.SimpleClusterListener
 import pcs.server.service.{CataloguesService, CategoryService, Service}
 
 import scala.util.{Failure, Success}
@@ -40,5 +42,10 @@ trait ServerSupport extends SystemSupport {
           log.error(exception, "Failed to start server at {}:{}", host, port)
           system.terminate()
       }
+
+    val ref = system.actorOf(Props[SimpleClusterListener], name = "clusterListener")
+
+    println(s"Ref $ref")
+
   }
 }
