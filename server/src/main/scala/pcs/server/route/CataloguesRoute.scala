@@ -21,7 +21,7 @@ class CataloguesRoute(cataloguesService: CataloguesService)
 
   import cataloguesService._
 
-  override lazy val routes: Route = find() ~ all ~ create ~ update ~ remove
+  override lazy val routes: Route = find ~ all ~ create ~ update ~ remove
   override lazy val path: PathMatcher[Unit] = "v1" / "products"
 
   @ApiOperation(httpMethod = "GET", value = "Find product", response = classOf[Product])
