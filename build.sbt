@@ -64,9 +64,16 @@ lazy val server = project
 //
 // Root module
 //
+lazy val rootSettings = Seq(
+  name := "Scala Product Catalogues",
+  organization := "shtykhno.net",
+  startYear := Some(2017),
+  description := "Micro-service with Scala and Akka",
+  licenses += "MIT" -> url("https://choosealicense.com/licenses/mit/")
+)
+
 lazy val root = project
   .in(file("."))
-  .settings(commonSettings)
+  .settings(commonSettings ++ rootSettings)
   .dependsOn(server)
   .aggregate(common, core, server, persistence)
-
