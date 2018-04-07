@@ -29,7 +29,7 @@ class CataloguesRoute(cataloguesService: CataloguesService)
     new ApiImplicitParam(name = "id", required = true, dataType = "integer", paramType = "path", value = "Product ID")
   ))
   @Path("/{id}")
-  def find(): Route = {
+  def find: Route = {
     get {
       pathPrefix(path / LongNumber) { id =>
         pathEndOrSingleSlash {
