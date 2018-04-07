@@ -13,7 +13,7 @@ import scala.concurrent.duration._
 /**
   * Defines REST API for product catalogues
   */
-case class CataloguesService(system: ActorSystem) extends Service {
+class CataloguesService(implicit system: ActorSystem) extends Service {
 
   lazy val log = Logging(system, classOf[CataloguesService])
 

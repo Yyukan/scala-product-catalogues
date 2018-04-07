@@ -4,7 +4,7 @@ import akka.actor.Props
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import pcs.core.sample.cluster.simple.SimpleClusterListener
-import pcs.server.service.{CataloguesService, CategoryService, Service}
+import pcs.server.service._
 
 import scala.util.{Failure, Success}
 
@@ -15,8 +15,9 @@ trait ServerSupport extends SystemSupport {
 
   /* all supported services */
   lazy val services: Seq[Service] = Seq(
-    CategoryService(system),
-    CataloguesService(system)
+    new CategoryService(),
+    new CataloguesService(),
+    new HealthCheckService()
   )
 
   /**

@@ -9,7 +9,7 @@ import akka.http.scaladsl.server.Route
 /**
   * Defines REST API for product categories
   */
-case class CategoryService(system: ActorSystem) extends Service {
+class CategoryService(implicit system: ActorSystem) extends Service {
 
   lazy val log = Logging(system, classOf[CategoryService])
 
@@ -19,7 +19,7 @@ case class CategoryService(system: ActorSystem) extends Service {
     get {
       pathPrefix("v1" / "categories" / LongNumber ) { id =>
         pathEndOrSingleSlash {
-          log.info(s"Find catefory by $id")
+          log.info(s"Find category by $id")
           complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"find category by id $id"))
         }
       }
