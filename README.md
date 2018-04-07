@@ -26,11 +26,14 @@ The project is multi module where each module represents one layer of the servic
 
 ## Architecture ##
 
-TODO
+<!-- language: lang-none -->
+    ------------         -----------------         ------ 
+    | REST API | <-----> | Remote Actors | <-----> | DB |          
+    ------------         -----------------         ------ 
 
 ## Swagger ##
 
-`http://localhost:19999/swagger`
+`http://127.0.0.1:19999/swagger`
 
 ## How to run ##
 
