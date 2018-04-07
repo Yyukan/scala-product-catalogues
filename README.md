@@ -28,6 +28,10 @@ The project is multi module where each module represents one layer of the servic
 
 TODO
 
+## Swagger ##
+
+`http://localhost:19999/swagger`
+
 ## How to run ##
 
 First node (127.0.0.1:2551)

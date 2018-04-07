@@ -2,7 +2,7 @@ package pcs.server
 
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
-import pcs.server.route.{CataloguesRoute, HealthRoute, Routes}
+import pcs.server.route.{CataloguesRoute, HealthRoute, Routes, SwaggerRoute}
 import pcs.server.service._
 
 import scala.util.{Failure, Success}
@@ -15,7 +15,8 @@ trait ServerSupport extends SystemSupport {
   /* all supported services */
   lazy val api: Seq[Routes] = Seq(
     new CataloguesRoute(new CataloguesService()),
-    new HealthRoute()
+    new HealthRoute,
+    new SwaggerRoute
   )
 
   /**
