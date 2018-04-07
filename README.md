@@ -2,6 +2,8 @@
 
 This is a resume portfolio project to demonstrate the case of building micro-services with Scala and Akka
 
+[![Build Status](https://travis-ci.org/Yyukan/scala-product-catalogus.svg?branch=master)](https://travis-ci.org/Yyukan/scala-product-catalogus)
+
 ## Technologies are used ##
 
 * [Scala](https://scala-lang.org)

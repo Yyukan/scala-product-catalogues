@@ -1,11 +1,11 @@
 import sbt._
 
 object Version {
-  final val scala = "2.12.4"
-  final val akka = "2.5.6"
-  final val akkaHttp = "10.0.10"
-  final val cats = "1.0.0-MF"
-  final val slick = "3.2.1"
+  final val scala = "2.12.5"
+  final val akka = "2.5.11"
+  final val akkaHttp = "10.1.0"
+  final val cats = "1.0.0"
+  final val slick = "3.2.3"
 }
 
 object Library {
