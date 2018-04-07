@@ -1,9 +1,8 @@
 package pcs.server
 
-import akka.actor.Props
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
-import pcs.core.sample.cluster.simple.SimpleClusterListener
+import pcs.server.route.{CataloguesRoute, HealthRoute, Routes}
 import pcs.server.service._
 
 import scala.util.{Failure, Success}
@@ -14,10 +13,9 @@ import scala.util.{Failure, Success}
 trait ServerSupport extends SystemSupport {
 
   /* all supported services */
-  lazy val services: Seq[Service] = Seq(
-    new CategoryService(),
-    new CataloguesService(),
-    new HealthCheckService()
+  lazy val api: Seq[Routes] = Seq(
+    new CataloguesRoute(new CataloguesService()),
+    new HealthRoute()
   )
 
   /**
@@ -31,7 +29,7 @@ trait ServerSupport extends SystemSupport {
     val host = config.getString("pcs.server.host")
     val port = config.getInt("pcs.server.port")
 
-    val routes = services
+    val routes = api
       .map(_.routes)
       .reduce(_ ~ _)
 
@@ -43,10 +41,5 @@ trait ServerSupport extends SystemSupport {
           log.error(exception, "Failed to start server at {}:{}", host, port)
           system.terminate()
       }
-
-    val ref = system.actorOf(Props[SimpleClusterListener], name = "clusterListener")
-
-    println(s"Ref $ref")
-
   }
 }

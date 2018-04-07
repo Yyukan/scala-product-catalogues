@@ -9,14 +9,15 @@ object Version {
 }
 
 object Library {
-  val akkaActor       = "com.typesafe.akka"  %% "akka-actor"       % Version.akka
-  val akkaStreams     = "com.typesafe.akka"  %% "akka-stream"      % Version.akka
-  val akkaPersistence = "com.typesafe.akka"  %% "akka-persistence" % Version.akka
-  val akkaCluster     = "com.typesafe.akka"  %% "akka-cluster"     % Version.akka
-  val akkaRemote      = "com.typesafe.akka"  %% "akka-remote"      % Version.akka
-  val akkaHttp        = "com.typesafe.akka"  %% "akka-http"        % Version.akkaHttp
-  val cats            = "org.typelevel"      %% "cats-core"        % Version.cats
-  val slick           = "com.typesafe.slick" %% "slick"            % Version.slick
+  val akkaActor       = "com.typesafe.akka"  %% "akka-actor"           % Version.akka
+  val akkaStreams     = "com.typesafe.akka"  %% "akka-stream"          % Version.akka
+  val akkaPersistence = "com.typesafe.akka"  %% "akka-persistence"     % Version.akka
+  val akkaCluster     = "com.typesafe.akka"  %% "akka-cluster"         % Version.akka
+  val akkaRemote      = "com.typesafe.akka"  %% "akka-remote"          % Version.akka
+  val akkaHttp        = "com.typesafe.akka"  %% "akka-http"            % Version.akkaHttp
+  val akkaJson        = "com.typesafe.akka"  %% "akka-http-spray-json" % Version.akkaHttp
+  val cats            = "org.typelevel"      %% "cats-core"            % Version.cats
+  val slick           = "com.typesafe.slick" %% "slick"                % Version.slick
 }
 
 object Testing {
@@ -43,6 +44,7 @@ object Dependencies {
 
   val server = Seq(
     akkaHttp,
+    akkaJson,
     akkaStreams,
     akkaRemote
   )

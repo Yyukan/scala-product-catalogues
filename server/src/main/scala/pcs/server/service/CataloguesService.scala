@@ -1,42 +1,32 @@
 package pcs.server.service
 
-import akka.actor.ActorSystem
-import akka.event.Logging
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
-import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server._
-import akka.pattern.ask
-import akka.util.Timeout
+import pcs.core.model.Product
 
-import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
-  * Defines REST API for product catalogues
+  * Defines API for product catalogues
   */
-class CataloguesService(implicit system: ActorSystem) extends Service {
+class CataloguesService(implicit executionContext: ExecutionContext) {
 
-  lazy val log = Logging(system, classOf[CataloguesService])
-
-  override lazy val routes: Route = findById
-
-  implicit val timeout: Timeout = 5 seconds
-
-  def findById: Route = {
-    get {
-      pathPrefix("v1" / "products" / LongNumber ) { id =>
-        pathEndOrSingleSlash {
-          val remote =
-            system.actorSelection("akka.tcp://server-system@127.0.0.1:2551/user/clusterListener")
-
-          println(s"Actor in selection $remote")
-
-          onSuccess((remote ? "Give me any product id").mapTo[Int]) { id =>
-            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, s"Product id is $id"))
-          }
-        }
-      }
-    }
+  def findProductById(id: Long): Future[Option[Product]] = {
+    Future(Some(Product(1L, "Google Chromecast")))
   }
 
+  def findProducts(limit: Int): Future[Seq[Product]] = {
+    Future(List(Product(1L, "Google Chromecast")))
+  }
+
+  def createProduct(title: String): Future[Product] = {
+    Future(Product(1L, "Google Chromecast"))
+  }
+
+  def updateProduct(product: Product): Future[Option[Product]] = {
+    Future(Some(Product(1L, "Google Chromecast")))
+  }
+
+  def deleteProduct(id: Long): Future[Option[Product]] = {
+    Future(Some(Product(1L, "Google Chromecast")))
+  }
 }
 
