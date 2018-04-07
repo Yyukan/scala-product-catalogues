@@ -1,7 +1,10 @@
 package pcs.server.service
 
+import java.util.concurrent.atomic.AtomicLong
+
 import pcs.core.model.Product
 
+import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
@@ -9,24 +12,33 @@ import scala.concurrent.{ExecutionContext, Future}
   */
 class CataloguesService(implicit executionContext: ExecutionContext) {
 
+  // TODO:oshtykhno implement remote persistence
+  val sequence = new AtomicLong()
+  val storage: mutable.Map[Long, Product] = mutable.Map()
+  
   def findProductById(id: Long): Future[Option[Product]] = {
-    Future(Some(Product(1L, "Google Chromecast")))
+    Future(storage.get(id))
   }
 
   def findProducts(limit: Int): Future[Seq[Product]] = {
-    Future(List(Product(1L, "Google Chromecast")))
+    Future(storage.values.toList.take(limit))
   }
 
   def createProduct(title: String): Future[Product] = {
-    Future(Product(1L, "Google Chromecast"))
+    Future {
+      val id = sequence.getAndAdd(1)
+      val product = Product(id, title)
+      storage.put(id, product)
+      product
+    }
   }
 
   def updateProduct(product: Product): Future[Option[Product]] = {
-    Future(Some(Product(1L, "Google Chromecast")))
+    Future(storage.put(product.id, product))
   }
 
   def deleteProduct(id: Long): Future[Option[Product]] = {
-    Future(Some(Product(1L, "Google Chromecast")))
+    Future(storage.remove(id))
   }
 }
 
