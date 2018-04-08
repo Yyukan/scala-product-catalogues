@@ -49,11 +49,9 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   @Path("/all/{limit}")
   def all: Route = {
     get {
-      pathPrefix(productsPath / "all" / IntNumber) { limit =>
-        pathEndOrSingleSlash {
-          complete {
-            findProducts(limit)
-          }
+      path(productsPath / "all" / IntNumber) { limit =>
+        complete {
+          findProducts(limit)
         }
       }
     }
@@ -75,7 +73,7 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   ))
   def create: Route = {
     post {
-      pathPrefix(productsPath) {
+      path(productsPath) {
         parameters('title.as[String]) { title =>
           complete {
             createProduct(title)
@@ -105,6 +103,7 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   @ApiImplicitParams(Array(
     new ApiImplicitParam(name = "id", required = true, dataType = "integer", paramType = "path", value = "Product ID")
   ))
+  @Path("/{id}")
   def remove: Route = {
     delete {
       path(productsPath / LongNumber) { id =>
