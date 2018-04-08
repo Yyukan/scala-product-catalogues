@@ -6,7 +6,8 @@ import akka.NotUsed
 import akka.stream.scaladsl.Source
 import pcs.core.model.Product
 
-import scala.collection.mutable
+import scala.collection._
+import scala.collection.concurrent.TrieMap
 import scala.concurrent.{ExecutionContext, Future}
 
 
@@ -31,7 +32,7 @@ trait CataloguesService {
 class MemoryCataloguesService(implicit executionContext: ExecutionContext) extends CataloguesService {
 
   val sequence = new AtomicLong()
-  val storage: mutable.Map[Long, Product] = mutable.Map()
+  val storage: concurrent.Map[Long, Product] = TrieMap()
   
   def findProductById(id: Long): Future[Option[Product]] = {
     Future(storage.get(id))
