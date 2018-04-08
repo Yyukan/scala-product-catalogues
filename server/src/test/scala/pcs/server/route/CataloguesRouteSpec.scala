@@ -1,5 +1,8 @@
 package pcs.server.route
 
+import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.StatusCodes._
+import akka.http.scaladsl.server.Route
 import org.scalamock.scalatest.MockFactory
 import pcs.core.model.Product
 import pcs.server.service.CataloguesService
@@ -19,16 +22,15 @@ class CataloguesRouteSpec extends UnitSpec with MockFactory with JsonSupport {
 
     Get("/v1/products/1") ~> routes ~> check {
       responseAs[Product] shouldBe product
-      status.intValue() shouldBe 200
+      status shouldEqual OK
     }
   }
 
   "find product" should "return nothing" in {
     (service.findProductById _).expects(0).returning(Future(None))
 
-    Get("/v1/products/0") ~> routes ~> check {
-      responseAs[String] shouldBe ""
-      status.intValue() shouldBe 200
+    Get("/v1/products/0") ~> Route.seal(routes) ~> check {
+      status shouldEqual NotFound
     }
   }
 

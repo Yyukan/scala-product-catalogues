@@ -31,8 +31,10 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   def find: Route = {
     get {
       path("v1" / "products" / LongNumber) { id =>
-        complete {
-          findProductById(id)
+        rejectEmptyResponse {
+          complete {
+            findProductById(id)
+          }
         }
       }
     }
