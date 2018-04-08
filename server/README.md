@@ -1,5 +1,4 @@
-How to check
-------------
+## Server module ##
 
 curl -X GET http://127.0.0.1:19999/v1/products/1
 curl -X GET http://127.0.0.1:19999/v1/products/all/1

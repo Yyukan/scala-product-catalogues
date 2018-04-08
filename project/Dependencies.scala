@@ -8,10 +8,12 @@ object Version {
   val akkaSwaggerUI = "1.1.0"
   val cats = "1.0.0"
   val slick = "3.2.3"
+  val scalaTest = "3.0.5"
+  val mockito = "2.18.0"
 }
 
 object Library {
-  val akkaActor       = "com.typesafe.akka"            %% "akka-actor"           % Version.akka
+  val akka            = "com.typesafe.akka"            %% "akka-actor"           % Version.akka
   val akkaStreams     = "com.typesafe.akka"            %% "akka-stream"          % Version.akka
   val akkaPersistence = "com.typesafe.akka"            %% "akka-persistence"     % Version.akka
   val akkaCluster     = "com.typesafe.akka"            %% "akka-cluster"         % Version.akka
@@ -25,16 +27,24 @@ object Library {
 }
 
 object Testing {
-  val akkaTestKit = "com.typesafe.akka" %% "akka-testkit" % Version.akka
+  val akkaTestKit     = "com.typesafe.akka"            %% "akka-testkit"         % Version.akka % Test
+  val akkaHttpTestKit = "com.typesafe.akka"            %% "akka-http-testkit"    % Version.akkaHttp % Test
+  val scalactic       = "org.scalactic"                %% "scalactic"            % Version.scalaTest % Test
+  val scalatest       = "org.scalatest"                %% "scalatest"            % Version.scalaTest % Test
+  val mockito         = "org.mockito"                  %  "mockito-core"         % Version.mockito % Test
 }
 
 object Dependencies {
 
   import Library._
+  import Testing._
 
   val common = Seq(
-    akkaActor,
-    cats
+    akka,
+    cats,
+    scalactic,
+    scalatest,
+    mockito
   )
 
   val persistence = Seq(
@@ -48,6 +58,7 @@ object Dependencies {
 
   val server = Seq(
     akkaHttp,
+    akkaHttpTestKit,
     akkaJson,
     akkaSwagger,
     akkaSwaggerUI,
