@@ -14,7 +14,6 @@ import javax.ws.rs.Path
 class HealthRoute extends Routes {
 
   override lazy val routes: Route = healthCheck
-  override lazy val path: PathMatcher[Unit] = "v1" / "health"
 
   @ApiOperation(httpMethod = "GET", value = "Health Check Endpoint")
   @ApiResponses(Array(
@@ -22,7 +21,7 @@ class HealthRoute extends Routes {
   )
   def healthCheck: Route = {
     get {
-      pathPrefix(path) {
+      path("v1" / "health") {
           complete(OK)
       }
     }

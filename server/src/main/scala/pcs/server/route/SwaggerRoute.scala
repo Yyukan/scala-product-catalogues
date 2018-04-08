@@ -1,8 +1,8 @@
 package pcs.server.route
 
-import akka.http.scaladsl.server.PathMatcher
-import com.github.swagger.akka.{SwaggerHttpService, SwaggerSite}
+import akka.http.scaladsl.server.Route
 import com.github.swagger.akka.model.Info
+import com.github.swagger.akka.{SwaggerHttpService, SwaggerSite}
 
 /**
   * Defines Swagger support
@@ -12,7 +12,5 @@ class SwaggerRoute extends SwaggerHttpService with SwaggerSite with Routes {
   override val host = "localhost:19999"
   override val info = Info(description = "Product Catalogues REST API")
 
-  override def path: PathMatcher[Unit] = ""
-
-  override lazy val routes = swaggerSiteRoute ~ super.routes
+  override lazy val routes: Route = swaggerSiteRoute ~ super.routes
 }

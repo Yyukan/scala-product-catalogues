@@ -11,9 +11,4 @@ trait Routes {
     * Returns service route as [[Route]]
     */
   def routes: Route
-
-  /**
-    * Returns service api path
-    */
-  def path: PathMatcher[Unit]
 }

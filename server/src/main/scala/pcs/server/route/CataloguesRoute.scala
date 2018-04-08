@@ -4,9 +4,9 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{PathMatcher, Route}
 import io.swagger.annotations._
 import javax.ws.rs.Path
+import pcs.core.model.Product
 import pcs.server.JsonSupport
 import pcs.server.service.CataloguesService
-import pcs.core.model.Product
 
 import scala.concurrent.ExecutionContext
 
@@ -21,8 +21,9 @@ class CataloguesRoute(cataloguesService: CataloguesService)
 
   import cataloguesService._
 
-  override lazy val routes: Route = find ~ all ~ create ~ update ~ remove
-  override lazy val path: PathMatcher[Unit] = "v1" / "products"
+  override lazy val routes: Route = find ~ all ~ create ~ update ~ remove ~ stream
+
+  val productsPath: PathMatcher[Unit] = "v1" / "products"
 
   @ApiOperation(httpMethod = "GET", value = "Find product", response = classOf[Product])
   @ApiImplicitParams(Array(
@@ -31,7 +32,7 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   @Path("/{id}")
   def find: Route = {
     get {
-      pathPrefix(path / LongNumber) { id =>
+      pathPrefix(productsPath / LongNumber) { id =>
         pathEndOrSingleSlash {
           complete {
             findProductById(id)
@@ -48,12 +49,22 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   @Path("/all/{limit}")
   def all: Route = {
     get {
-      pathPrefix(path / "all" / IntNumber) { limit =>
+      pathPrefix(productsPath / "all" / IntNumber) { limit =>
         pathEndOrSingleSlash {
           complete {
             findProducts(limit)
           }
         }
+      }
+    }
+  }
+
+  @ApiOperation(httpMethod = "GET", value = "Stream products")
+  @Path("/stream")
+  def stream: Route = {
+    path(productsPath / "stream") {
+      complete {
+        streamProducts()
       }
     }
   }
@@ -64,11 +75,12 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   ))
   def create: Route = {
     post {
-      pathPrefix(path)
+      pathPrefix(productsPath) {
         parameters('title.as[String]) { title =>
           complete {
             createProduct(title)
           }
+        }
       }
     }
   }
@@ -79,12 +91,13 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   ))
   def update: Route = {
     put {
-      pathPrefix(path)
+      path(productsPath) {
         entity(as[Product]) { product =>
           complete {
             updateProduct(product)
           }
         }
+      }
     }
   }
 
@@ -94,11 +107,9 @@ class CataloguesRoute(cataloguesService: CataloguesService)
   ))
   def remove: Route = {
     delete {
-      pathPrefix(path / LongNumber) { id =>
-        pathEndOrSingleSlash {
-          complete {
-            deleteProduct(id)
-          }
+      path(productsPath / LongNumber) { id =>
+        complete {
+          deleteProduct(id)
         }
       }
     }

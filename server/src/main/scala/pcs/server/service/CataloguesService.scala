@@ -2,6 +2,8 @@ package pcs.server.service
 
 import java.util.concurrent.atomic.AtomicLong
 
+import akka.NotUsed
+import akka.stream.scaladsl.Source
 import pcs.core.model.Product
 
 import scala.collection.mutable
@@ -39,6 +41,10 @@ class CataloguesService(implicit executionContext: ExecutionContext) {
 
   def deleteProduct(id: Long): Future[Option[Product]] = {
     Future(storage.remove(id))
+  }
+
+  def streamProducts(): Source[Product, NotUsed] = {
+    Source.fromIterator(() => storage.values.toIterator)
   }
 }
 
