@@ -3,7 +3,7 @@ package pcs.server
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import pcs.server.route.{CataloguesRoute, HealthRoute, Routes, SwaggerRoute}
-import pcs.server.service._
+import pcs.core.service._
 
 import scala.util.{Failure, Success}
 

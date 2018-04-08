@@ -1,11 +1,10 @@
 package pcs.server.route
 
-import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Route
 import org.scalamock.scalatest.MockFactory
 import pcs.core.model.Product
-import pcs.server.service.CataloguesService
+import pcs.core.service.CataloguesService
 import pcs.server.{JsonSupport, UnitSpec}
 
 import scala.concurrent.Future

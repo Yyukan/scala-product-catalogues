@@ -1,4 +1,4 @@
-package pcs.server.service
+package pcs.core.service
 
 import akka.NotUsed
 import akka.stream.scaladsl.Source

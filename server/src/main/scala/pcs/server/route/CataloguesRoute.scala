@@ -6,7 +6,7 @@ import io.swagger.annotations._
 import javax.ws.rs.Path
 import pcs.core.model.Product
 import pcs.server.JsonSupport
-import pcs.server.service.CataloguesService
+import pcs.core.service.CataloguesService
 
 import scala.concurrent.ExecutionContext
 
