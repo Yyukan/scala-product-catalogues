@@ -9,7 +9,6 @@ import com.github.swagger.akka.{SwaggerHttpService, SwaggerSite}
   */
 class SwaggerRoute extends SwaggerHttpService with SwaggerSite with Routes {
   override val apiClasses: Set[Class[_]] = Set(classOf[HealthRoute], classOf[CataloguesRoute])
-  override val host = "localhost:19999"
   override val info = Info(description = "Product Catalogues REST API")
 
   override lazy val routes: Route = swaggerSiteRoute ~ super.routes
