@@ -9,12 +9,27 @@ import pcs.core.model.Product
 import scala.collection.mutable
 import scala.concurrent.{ExecutionContext, Future}
 
+
 /**
   * Defines API for product catalogues
   */
-class CataloguesService(implicit executionContext: ExecutionContext) {
+trait CataloguesService {
 
-  // TODO:oshtykhno implement remote persistence
+  def findProductById(id: Long): Future[Option[Product]]
+
+  def findProducts(limit: Int): Future[Seq[Product]]
+
+  def createProduct(title: String): Future[Product]
+
+  def updateProduct(product: Product): Future[Option[Product]]
+
+  def deleteProduct(id: Long): Future[Option[Product]]
+
+  def streamProducts(): Source[Product, NotUsed]
+}
+
+class MemoryCataloguesService(implicit executionContext: ExecutionContext) extends CataloguesService {
+
   val sequence = new AtomicLong()
   val storage: mutable.Map[Long, Product] = mutable.Map()
   

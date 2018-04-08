@@ -14,7 +14,7 @@ trait ServerSupport extends SystemSupport {
 
   /* all supported services */
   lazy val api: Seq[Routes] = Seq(
-    new CataloguesRoute(new CataloguesService()),
+    new CataloguesRoute(new MemoryCataloguesService()),
     new HealthRoute,
     new SwaggerRoute
   )
