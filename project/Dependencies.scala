@@ -9,7 +9,7 @@ object Version {
   val cats = "1.0.0"
   val slick = "3.2.3"
   val scalaTest = "3.0.5"
-  val mockito = "2.18.0"
+  val scalaMock = "4.1.0"
 }
 
 object Library {
@@ -31,7 +31,7 @@ object Testing {
   val akkaHttpTestKit = "com.typesafe.akka"            %% "akka-http-testkit"    % Version.akkaHttp % Test
   val scalactic       = "org.scalactic"                %% "scalactic"            % Version.scalaTest % Test
   val scalatest       = "org.scalatest"                %% "scalatest"            % Version.scalaTest % Test
-  val mockito         = "org.mockito"                  %  "mockito-core"         % Version.mockito % Test
+  val scalamock       = "org.scalamock"                %% "scalamock"            % Version.scalaMock % Test
 }
 
 object Dependencies {
@@ -44,7 +44,7 @@ object Dependencies {
     cats,
     scalactic,
     scalatest,
-    mockito
+    scalamock
   )
 
   val persistence = Seq(
