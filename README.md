@@ -17,7 +17,7 @@ This is a resume portfolio project to demonstrate the case of building micro-ser
 
 ## Project structure ##
 
-The project is multi module where each module represents one layer of the service
+The project has multi module structure where each module represents one layer of the service
 
 * common - contains common shareable code
 * persistence - code to persist/retrieve product catalog
@@ -39,8 +39,8 @@ The project is multi module where each module represents one layer of the servic
 
 First node (127.0.0.1:2551)
 
-`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=19999 "runMain pcs.Main" `
+`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=19999 "runMain pcs.Server" `
 
 Second node 
 
-`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=20000 -DHOST=127.0.0.1 -DPORT=2552 "runMain pcs.Main"`
+`sbt -Dpcs.server.host=127.0.0.1 -Dpcs.server.port=20000 -DHOST=127.0.0.1 -DPORT=2552 "runMain pcs.Server"`
